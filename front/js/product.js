@@ -1,6 +1,6 @@
-var newUrl = window.location.href;
-var newUrl = new URL(actualUrl);
-var id = newUrl.searchParams.get("id");
+let url = window.location.href;
+let urlObject = new URL(url);
+let id = urlObject.searchParams.get("id");
 //console.log(id);
 
 url = "http://localhost:3000/api/products/" + id;
