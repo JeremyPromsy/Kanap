@@ -32,8 +32,8 @@ produit(urlProduct);
 function produitPage(imageUrl, imageAlt, name, price, description, colors) {
     document.title = name;
 
-    let productImage = document.createElement("image");
-    document.querySelector(".item__img").appendChild(productImage);
+    let productImg = document.createElement("img");
+    document.querySelector(".item__img").appendChild(productImg);
     productImg.src = imageUrl;
     productImg.alt = imageAlt;
   
