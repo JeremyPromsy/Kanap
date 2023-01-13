@@ -1,6 +1,6 @@
 url = "http://localhost:3000/api/products";
 
- function ajax(url) {
+ function accueil(url) {
    fetch(url)
      .then(function (response) {
        if (response.ok) {
@@ -22,7 +22,7 @@ url = "http://localhost:3000/api/products";
         console.error('Error:', error);
     })
  }
- ajax(url);
+ accueil(url);
 
  function addItem(idItem, imageUrl, imageAlt, name, description) {
     var items = document.getElementById("items");
