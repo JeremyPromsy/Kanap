@@ -3,10 +3,10 @@ let urlObject = new URL(url);
 let id = urlObject.searchParams.get("id");
 //console.log(id);
 
-url = "http://localhost:3000/api/products/" + id;
+urlProduct = "http://localhost:3000/api/products/" + id;
 
-function produit(url) {
-    fetch(url)
+function produit(urlProduct) {
+    fetch(urlProduct)
       .then(function (response) {
         if (response.ok) {
           return response.json();
@@ -26,16 +26,17 @@ function produit(url) {
         console.error('Error:', error);
     })
   }
-produit(url);
+produit(urlProduct);
 
   
 function produitPage(imageUrl, imageAlt, name, price, description, colors) {
-
     document.title = name;
 
-    document.getElementsByClassName("item__img");
-    document.createElement("img");
-
+    let productImage = document.createElement("image");
+    document.querySelector(".item__img").appendChild(productImage);
+    productImg.src = imageUrl;
+    productImg.alt = imageAlt;
+  
     document.getElementById("title").textContent = name;
 
     document.getElementById("price").textContent = price;
