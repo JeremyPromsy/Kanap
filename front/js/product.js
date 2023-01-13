@@ -5,7 +5,7 @@ let id = urlObject.searchParams.get("id");
 
 url = "http://localhost:3000/api/products/" + id;
 
-function ajax(url) {
+function produit(url) {
     fetch(url)
       .then(function (response) {
         if (response.ok) {
@@ -13,7 +13,7 @@ function ajax(url) {
         }
       })
       .then(function (article) {
-        createArticlePage(
+        produitPage(
           article.imageUrl,
           article.altTxt,
           article.name,
@@ -26,6 +26,28 @@ function ajax(url) {
         console.error('Error:', error);
     })
   }
-  ajax(url);
+produit(url);
 
   
+function produitPage(imageUrl, imageAlt, name, price, description, colors) {
+
+    document.title = name;
+
+    document.getElementsByClassName("item__img");
+    document.createElement("img");
+
+    document.getElementById("title").textContent = name;
+
+    document.getElementById("price").textContent = price;
+
+    document.getElementById("description").textContent = description;
+
+    document.getElementById("colors").textContent = colors;
+  
+}
+
+
+
+
+
+
