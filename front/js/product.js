@@ -30,25 +30,32 @@ produit(urlProduct);
 
   
 function produitPage(imageUrl, imageAlt, name, price, description, colors) {
+    //nom de la page
     document.title = name;
 
+    //image + Alt
     let productImg = document.createElement("img");
     document.querySelector(".item__img").appendChild(productImg);
     productImg.src = imageUrl;
     productImg.alt = imageAlt;
   
+    //Nom du Kanap
     document.getElementById("title").textContent = name;
 
+    // Prix
     document.getElementById("price").textContent = price;
 
+    // Description
     document.getElementById("description").textContent = description;
 
-    document.getElementById("colors").textContent = colors;
-  
+    // Couleurs 
+    let colorChoice = document.getElementById("colors");
+
+    // Création fonction couleurs
+    for (let colors of ccouleurrs) {
+        let optionColor = document.createElement("couleurs");
+        optionColor.value = colors;
+        optionColor.textContent = colors;
+        colorChoice.append(optionColor);
+    }
 }
-
-
-
-
-
-
