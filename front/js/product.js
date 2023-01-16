@@ -54,7 +54,6 @@ function produitPage(imageUrl, imageAlt, name, price, description, colors) {
     // Création fonction couleurs
     for (let options of colors) {
         let optionColor = document.createElement("option");
-        optionColor.value = options;
         optionColor.textContent = options;
         colorChoice.append(optionColor);
     }
