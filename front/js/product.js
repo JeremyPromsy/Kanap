@@ -52,10 +52,10 @@ function produitPage(imageUrl, imageAlt, name, price, description, colors) {
     let colorChoice = document.getElementById("colors");
 
     // Création fonction couleurs
-    for (let colors of ccouleurrs) {
-        let optionColor = document.createElement("couleurs");
-        optionColor.value = colors;
-        optionColor.textContent = colors;
+    for (let options of colors) {
+        let optionColor = document.createElement("option");
+        optionColor.value = options;
+        optionColor.textContent = options;
         colorChoice.append(optionColor);
     }
 }
