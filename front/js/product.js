@@ -58,3 +58,35 @@ function produitPage(imageUrl, imageAlt, name, price, description, colors) {
         colorChoice.append(optionColor);
     }
 }
+
+
+// début de l'ajout au panier 
+function addToCart(article) {
+  const btn_envoyerPanier = document.querySelector("#addToCart");
+
+  btn_envoyerPanier.addEventListener("click", (event)=>{
+      if (quantityPicked.value > 0 && quantityPicked.value <=100 && quantityPicked.value != 0){
+
+  let choixCouleur = colorPicked.value;
+              
+  let choixQuantite = quantityPicked.value;
+
+  //options a recupérer 
+  let optionsProduct = {
+      idProduit: idProduct,
+      couleurProduit: choixCouleur,
+      quantiteProduit: Number(choixQuantite),
+      nomProduit: article.name,
+      prixProduit: article.price,
+      descriptionProduit: article.description,
+      imgProduit: article.imageUrl,
+      altImgProduit: article.altTxt
+  };
+
+// local storage
+let productLocalStorage = localStorage.getItem("produit");
+
+
+          }
+      }
+)}
