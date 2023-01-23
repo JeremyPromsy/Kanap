@@ -60,12 +60,13 @@ function getProduitPage(imageUrl, imageAlt, name, price, description, colors) {
     }
 }
 
-const popupPanier = (name) => {
+const fenetrePanier = (name) => {
   if (
     window.confirm(
-      `Vous avez réservé ${document.getElementById("quantity").value} ${name} ${
+      `Vous avez acheté ${document.getElementById("quantity").value} ${name} de couleur ${
         document.getElementById("colors").value
-      } Pour consulter votre panier, cliquez sur OK`
+      } 
+      Pour aller au panier, cliquez sur OK`
     )
   ) {
     window.location.href = "cart.html";
@@ -73,9 +74,11 @@ const popupPanier = (name) => {
 };
 
 function gestionPanier(id, name) {
-  let productLocalStorage = localStorage.getItem("kanapBasket");
+  // local Storage
+  let productLocalStorage = localStorage.getItem("panier");
   let objJson = JSON.parse(productLocalStorage);
 
+  // mise au panier au clic : quantité + couleurs
   document.getElementById("addToCart").addEventListener("click", () => {
     if (
       document.getElementById("quantity").value > 0 && document.getElementById("quantity").value <= 100 &&
@@ -88,6 +91,7 @@ function gestionPanier(id, name) {
         colors: document.getElementById("colors").value,
       };
 
+      // Tout est ok 
       if (objJson) {
         console.log("Panier contenant du contenu, je verrifie");
 
@@ -95,31 +99,37 @@ function gestionPanier(id, name) {
           (panier) => panier.id === article.id && panier.colors === article.colors
         );
 
+        // Produit ok - Quantité non 
         if (articlePresent) {
           console.log(
             "Produit trouvé, donc je n'ajoute pas, j'ajuste la quantité"
           );
           articlePresent.quantity =
             parseInt(article.quantity) + parseInt(articlePresent.quantity);
-          localStorage.setItem("kanapBasket", JSON.stringify(objJson));
-          popupPanier(name);
-        } else {
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          fenetrePanier(name);
+        } 
+
+        // Produit non - Quantité non 
+        else {
           console.log("Produit non trouvé, donc j'ajoute");
           objJson.push(article);
-          localStorage.setItem("kanapBasket", JSON.stringify(objJson));
-          popupPanier(name);
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          fenetrePanier(name);
         }
-      } else {
+      } 
+      
+      // Panier vide 
+      else {
         console.log("Panier vide, donc j'ajoute");
         objJson = [];
         objJson.push(article);
-        localStorage.setItem("kanapBasket", JSON.stringify(objJson));
-        popupPanier(name);
+        localStorage.setItem("panier", JSON.stringify(objJson));
+        fenetrePanier(name);
       }
-      console.log(objJson);
-      console.log(localStorage);
     } 
-    
+
+    // Rien sélectionné
     else {
       alert("Vous devez renseigner le nombre d'articles et la couleur.");
     }
