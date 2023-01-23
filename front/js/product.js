@@ -93,46 +93,39 @@ function gestionPanier(id, name) {
 
       // Tout est ok 
       if (objJson) {
-        console.log("Panier contenant du contenu, je verrifie");
-
       const articlePresent = objJson.find(
           (panier) => panier.id === article.id && panier.colors === article.colors
         );
 
         // Produit ok - Quantité non 
         if (articlePresent) {
-          console.log(
-            "Produit trouvé, donc je n'ajoute pas, j'ajuste la quantité"
-          );
           articlePresent.quantity =
-            parseInt(article.quantity) + parseInt(articlePresent.quantity);
+          parseInt(article.quantity) + parseInt(articlePresent.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         } 
 
         // Produit non - Quantité non 
         else {
-          console.log("Produit non trouvé, donc j'ajoute");
           objJson.push(article);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         }
       } 
       
-      // Panier vide 
-      else {
-        console.log("Panier vide, donc j'ajoute");
-        objJson = [];
-        objJson.push(article);
-        localStorage.setItem("panier", JSON.stringify(objJson));
-        fenetrePanier(name);
-      }
-    } 
+        // Panier vide 
+        else {
+          objJson = [];
+          objJson.push(article);
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          fenetrePanier(name);
+        }
+      } 
 
-    // Rien sélectionné
-    else {
-      alert("Vous devez renseigner le nombre d'articles et la couleur.");
-    }
+      // Rien sélectionné
+      else {
+       alert();
+      }
   });
 }
 
