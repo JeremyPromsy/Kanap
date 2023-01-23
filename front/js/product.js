@@ -21,6 +21,7 @@ function getProduit(urlProduct) {
           article.description,
           article.colors
         );
+        gestionPanier(id, article.name);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -59,57 +60,69 @@ function getProduitPage(imageUrl, imageAlt, name, price, description, colors) {
     }
 }
 
-const colorPicked = document.querySelector("#colors");
-const quantityPicked = document.querySelector("#quantity");
-
-function addToCart(article) {
-  // local storage
-  let productLocalStorage = localStorage.getItem("produit");
-  let objJson = JSON.parse(productLocalStorage);
-  
-  
-  const btn_envoyerPanier = document.querySelector("#addToCart");
-
-  btn_envoyerPanier.addEventListener("click", ()=>{
-      if (quantityPicked.value > 0 && quantityPicked.value <=100 && quantityPicked.value != 0){
-  let choixCouleur = colorPicked.value;        
-  let choixQuantite = quantityPicked.value;
-
-  //fenêtre pop-up
-  const popupConfirmation =() =>{
-    if(window.confirm(`Votre commande de ${choixQuantite} ${article.name} ${choixCouleur} est ajoutée au panier
-Pour consulter votre panier, cliquez sur OK`)){
-        window.location.href ="cart.html";
-    }
+const popupPanier = (name) => {
+  if (
+    window.confirm(
+      `Vous avez réservé ${document.getElementById("quantity").value} ${name} ${
+        document.getElementById("colors").value
+      } Pour consulter votre panier, cliquez sur OK`
+    )
+  ) {
+    window.location.href = "cart.html";
   }
+};
 
-//Importation dans le local storage
-  //Si le panier comporte déjà au moins 1 article
-  if (objJson) {
-    const resultFind = objJson.find(
-        (el) => el.idProduit === idProduct && el.couleurProduit === choixCouleur);
-        //Si le produit commandé est déjà dans le panier
-        if (resultFind) {
-            let newQuantite =
-            parseInt(optionsProduct.quantiteProduit) + parseInt(resultFind.quantiteProduit);
-            resultFind.quantiteProduit = newQuantite;
-            localStorage.setItem("produit", JSON.stringify(objJson));
-            console.table(objJson);
-            popupConfirmation();
-        //Si le produit commandé n'est pas dans le panier
+function gestionPanier(id, name) {
+  let productLocalStorage = localStorage.getItem("kanapBasket");
+  let objJson = JSON.parse(productLocalStorage);
+
+  document.getElementById("addToCart").addEventListener("click", () => {
+    if (
+      document.getElementById("quantity").value > 0 && document.getElementById("quantity").value <= 100 &&
+      document.getElementById("colors").value != ""
+    ) {
+
+      let article = {
+        id: id,
+        quantity: document.getElementById("quantity").value,
+        colors: document.getElementById("colors").value,
+      };
+
+      if (objJson) {
+        console.log("Panier contenant du contenu, je verrifie");
+
+      const articlePresent = objJson.find(
+          (panier) => panier.id === article.id && panier.colors === article.colors
+        );
+
+        if (articlePresent) {
+          console.log(
+            "Produit trouvé, donc je n'ajoute pas, j'ajuste la quantité"
+          );
+          articlePresent.quantity =
+            parseInt(article.quantity) + parseInt(articlePresent.quantity);
+          localStorage.setItem("kanapBasket", JSON.stringify(objJson));
+          popupPanier(name);
         } else {
-          objJson.push(optionsProduct);
-            localStorage.setItem("produit", JSON.stringify(objJson));
-            console.table(objJson);
-            popupConfirmation();
+          console.log("Produit non trouvé, donc j'ajoute");
+          objJson.push(article);
+          localStorage.setItem("kanapBasket", JSON.stringify(objJson));
+          popupPanier(name);
         }
-    //Si le panier est vide
-    } else {
-      objJson =[];
-      objJson.push(optionsProduct);
-        localStorage.setItem("produit", JSON.stringify(objJson));
-        console.table(objJson);
-        popupConfirmation();
-      }}
-    });
+      } else {
+        console.log("Panier vide, donc j'ajoute");
+        objJson = [];
+        objJson.push(article);
+        localStorage.setItem("kanapBasket", JSON.stringify(objJson));
+        popupPanier(name);
+      }
+      console.log(objJson);
+      console.log(localStorage);
+    } 
+    
+    else {
+      alert("Vous devez renseigner le nombre d'articles et la couleur.");
+    }
+  });
 }
+
