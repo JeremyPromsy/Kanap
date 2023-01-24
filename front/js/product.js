@@ -98,7 +98,7 @@ function gestionPanier(id, name) {
           (panier) => panier.id === article.id && article.colors && article.colors
         );
 
-        // Produit ok - Quantité non 
+        // Produit ok - Rajout de quantité 
         if (articleOk) {
           articleOk.quantity = parseInt(article.quantity) + parseInt(articleOk.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
@@ -124,7 +124,7 @@ function gestionPanier(id, name) {
 
       // Rien sélectionné
       else {
-       alert();
+       alert('Vous devez sélectionné une quantité et une couleur');
       }
   });
 }
