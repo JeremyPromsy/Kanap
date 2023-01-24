@@ -114,7 +114,7 @@ function gestionPanier(id, name) {
       } 
       } 
 
-      // Rien sélectionné
+      // Alerte mise au panier
       else {
        alert('Vous devez sélectionné une quantité et une couleur.');
       }
