@@ -79,7 +79,7 @@ function gestionPanier(id, name) {
   let productLocalStorage = localStorage.getItem("panier");
   let objJson = JSON.parse(productLocalStorage);
 
-  // mise au panier au clic : quantité + couleurs
+  // Mise au panier au clic : quantité + couleurs
   document.getElementById("addToCart").addEventListener("click", () => {
     let article = {
       id: id,
@@ -92,39 +92,31 @@ function gestionPanier(id, name) {
       document.getElementById("colors").value != ""
     ) {
 
-      // Tout est ok 
+      // Début d'analyse du panier pour voir si le produit existe dejà 
       if (objJson) {
-      const articleOk = objJson.find(
-          (panier) => panier.id === article.id && article.colors && article.colors
+      const articleDejaAjoute = objJson.find(
+          (panier) => panier.id === article.id && panier.colors === article.colors
         );
 
-        // Produit ok - Rajout de quantité 
-        if (articleOk) {
-          articleOk.quantity = parseInt(article.quantity) + parseInt(articleOk.quantity);
+        // Produit présent - Rajout de quantité 
+        if (articleDejaAjoute) {
+          articleDejaAjoute.quantity = parseInt(article.quantity) + parseInt(articleDejaAjoute.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         } 
 
-        // Produit non - Quantité non 
+        // Produit non trouvé - Rajout du produit
         else {
           objJson.push(article);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         }
       } 
-      
-        // Panier vide 
-        else {
-          objJson = [];
-          objJson.push(article);
-          localStorage.setItem("panier", JSON.stringify(objJson));
-          fenetrePanier(name);
-        }
       } 
 
       // Rien sélectionné
       else {
-       alert('Vous devez sélectionné une quantité et une couleur');
+       alert('Vous devez sélectionné une quantité et une couleur.');
       }
   });
 }
