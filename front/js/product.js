@@ -60,6 +60,7 @@ function getProduitPage(imageUrl, imageAlt, name, price, description, colors) {
     }
 }
 
+// Confirmation mise au panier
 const fenetrePanier = (name) => {
   if (
     window.confirm(
@@ -80,16 +81,16 @@ function gestionPanier(id, name) {
 
   // mise au panier au clic : quantité + couleurs
   document.getElementById("addToCart").addEventListener("click", () => {
+    let article = {
+      id: id,
+      quantity: document.getElementById("quantity").value,
+      colors: document.getElementById("colors").value,
+    };
+    
     if (
       document.getElementById("quantity").value > 0 && document.getElementById("quantity").value <= 100 &&
       document.getElementById("colors").value != ""
     ) {
-
-      let article = {
-        id: id,
-        quantity: document.getElementById("quantity").value,
-        colors: document.getElementById("colors").value,
-      };
 
       // Tout est ok 
       if (objJson) {
