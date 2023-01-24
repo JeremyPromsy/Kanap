@@ -95,7 +95,7 @@ function gestionPanier(id, name) {
       // Tout est ok 
       if (objJson) {
       const articlePresent = objJson.find(
-          (panier) => panier.id === article.id && panier.colors === article.colors
+          (panier) => panier.id === article.id && article.colors && article.colors
         );
 
         // Produit ok - Quantité non 
