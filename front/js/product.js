@@ -94,14 +94,14 @@ function gestionPanier(id, name) {
 
       // Tout est ok 
       if (objJson) {
-      const articlePresent = objJson.find(
+      const articleOk = objJson.find(
           (panier) => panier.id === article.id && article.colors && article.colors
         );
 
         // Produit ok - Quantité non 
-        if (articlePresent) {
-          articlePresent.quantity =
-          parseInt(article.quantity) + parseInt(articlePresent.quantity);
+        if (articleOk) {
+          articleOk.quantity =
+          parseInt(article.quantity) + parseInt(articleOk.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         } 
