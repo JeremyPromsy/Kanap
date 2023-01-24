@@ -100,8 +100,7 @@ function gestionPanier(id, name) {
 
         // Produit ok - Quantité non 
         if (articleOk) {
-          articleOk.quantity =
-          parseInt(article.quantity) + parseInt(articleOk.quantity);
+          articleOk.quantity = parseInt(article.quantity) + parseInt(articleOk.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
           fenetrePanier(name);
         } 
