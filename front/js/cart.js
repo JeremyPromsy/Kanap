@@ -7,7 +7,7 @@ function affichagePanier(url, quantity, color) {
       })
       .then(function (articles) {
         createPanierArticle(
-          articles._id,
+          articles.id,
           articles.imageUrl,
           articles.altTxt,
           articles.name,
@@ -16,8 +16,8 @@ function affichagePanier(url, quantity, color) {
           quantity
         );
       })
-      .catch(function (err) {
-        console.log(err);
+      .catch(function (erreur) {
+        console.log(erreur);
       });
   }
 
