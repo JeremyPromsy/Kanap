@@ -83,17 +83,17 @@ function affichagePanier(url, quantity, color) {
     content__description_price.textContent = price + " €";
     cart__item__content__description.append(content__description_price);
   
-    // création de la sous-div content settings
+    // création de la content settings
     let cart__item__content__settings = document.createElement("div");
     cart__item__content__settings.classList.add("cart__item__content__settings");
     cart__item__content.append(cart__item__content__settings);
   
-    // création de la sous-sous-div quantity
+    // création de la quantity
     let cart__item__content__settings__quantity = document.createElement("div");
     cart__item__content__settings__quantity.classList.add("cart__item__content__settings__quantity");
     cart__item__content__settings.append(cart__item__content__settings__quantity);
   
-    // ajout de la quantité
+    // ajout du paragraphe la quantité
     let content__description_quantity = document.createElement("p");
     content__description_quantity.textContent = "Qté :";
     cart__item__content__settings__quantity.append(content__description_quantity);
