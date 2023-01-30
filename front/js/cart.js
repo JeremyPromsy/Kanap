@@ -24,15 +24,8 @@ function affichagePanier(url, quantity, color) {
   function analysePanier() {
     let productLocalStorage = localStorage.getItem("panier");
     let objJson = JSON.parse(productLocalStorage);
-  
-    let idobjJson = [];
+
     for (let article of objJson) {
-      if (!idobjJson.includes(article.id)) {
-        idobjJson.push(article);
-      }
-    }
-  
-    for (let article of idobjJson) {
       var url = "http://localhost:3000/api/products/" + article.id;
       affichagePanier(url, article.quantity, article.colors);
     }
