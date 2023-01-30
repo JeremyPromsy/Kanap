@@ -112,3 +112,50 @@ function affichagePanier(url, quantity, color) {
     delete_btn.classList.add("deleteItem");
     cart__item__content__settings__delete.append(delete_btn);
 }  
+
+function getPrice(url) {
+    fetch(url)
+      .then(function (response) {
+        if (response.ok) {
+          return res.json();
+        }
+      })
+      .then(function (data) {
+        return data.price;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  
+function getArticle() {
+    let productLocalStorage = localStorage.getItem("panier");
+    let objJson = JSON.parse(productLocalStorage);
+  
+    let totalPrice = 0;
+    let quantity = 0;
+
+    for (let article of objJson) {
+      quantity = parseInt(quantity) + parseInt(article.quantity);
+  
+      let url = "http://localhost:3000/api/products/" + article.id;
+  
+      fetch(url)
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+        .then(function (data) {
+          console.log(data.price * article.quantity);
+          totalPrice = totalPrice + article.quantity * data.price;
+          document.getElementById("totalPrice").innerText = totalPrice;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    document.getElementById("totalQuantity").innerText = quantity;
+  }
+  getArticle();
+  
