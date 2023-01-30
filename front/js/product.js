@@ -21,7 +21,7 @@ function getProduit(urlProduct) {
           article.description,
           article.colors
         );
-        gestionPanier(id, article.name);
+        ajoutPanier(id, article.name);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -61,7 +61,7 @@ function getProduitPage(imageUrl, imageAlt, name, price, description, colors) {
 }
 
 // Confirmation mise au panier
-const fenetrePanier = (name) => {
+const affichageFenetrePanier = (name) => {
   if (
     window.confirm(
       `Vous avez acheté ${document.getElementById("quantity").value} ${name} de couleur ${
@@ -74,7 +74,7 @@ const fenetrePanier = (name) => {
   }
 };
 
-function gestionPanier(id, name) {
+function ajoutPanier(id, name) {
   // local Storage
   let productLocalStorage = localStorage.getItem("panier");
   let objJson = JSON.parse(productLocalStorage);
@@ -102,14 +102,14 @@ function gestionPanier(id, name) {
         if (articleDejaAjoute) {
           articleDejaAjoute.quantity = parseInt(article.quantity) + parseInt(articleDejaAjoute.quantity);
           localStorage.setItem("panier", JSON.stringify(objJson));
-          fenetrePanier(name);
+          affichageFenetrePanier(name);
         } 
 
         // Produit non trouvé - Rajout du produit
         else {
           objJson.push(article);
           localStorage.setItem("panier", JSON.stringify(objJson));
-          fenetrePanier(name);
+          affichageFenetrePanier(name);
         }
       } 
       } 
