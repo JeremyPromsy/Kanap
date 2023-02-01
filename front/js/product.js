@@ -111,7 +111,12 @@ function ajoutPanier(id, name) {
           localStorage.setItem("panier", JSON.stringify(objJson));
           affichageFenetrePanier(name);
         }
-      } 
+      } else {
+          objJson = [];
+          objJson.push(article);
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          affichageFenetrePanier(name);
+       }
       } 
 
       // Alerte mise au panier
