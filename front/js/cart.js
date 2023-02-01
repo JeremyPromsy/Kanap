@@ -131,7 +131,6 @@ function getPrice(url) {
 function getArticle() {
     let productLocalStorage = localStorage.getItem("panier");
     let objJson = JSON.parse(productLocalStorage);
-  
     let totalPrice = 0;
     let quantity = 0;
 
@@ -157,6 +156,23 @@ function getArticle() {
     document.getElementById("totalQuantity").innerText = quantity;
   }
   getArticle();
+
+
+function modifyQuantity() {
+    let boutonsQuantity = document.getElementsByClassName("itemQuantity");
+    for (let boutonQuantity of boutonsQuantity) {
+        boutonQuantity.addEventListener('change', function () {
+     
+  
+        let productLocalStorage = localStorage.getItem("panier");
+        let panier = JSON.parse(productLocalStorage);
+  
+
+        localStorage.setItem("panier", JSON.stringify(panier));
+        getArticle();
+      });
+    }
+  }
 
 
 
