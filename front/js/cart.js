@@ -138,16 +138,15 @@ function getArticle() {
     for (let article of objJson) {
       quantity = parseInt(quantity) + parseInt(article.quantity);
   
-      let url = "http://localhost:3000/api/products/" + article.id;
+      let urlPanier = "http://localhost:3000/api/products/" + article.id;
   
-      fetch(url)
+      fetch(urlPanier)
         .then(function (response) {
           if (response.ok) {
             return response.json();
           }
         })
         .then(function (data) {
-          console.log(data.price * article.quantity);
           totalPrice = totalPrice + article.quantity * data.price;
           document.getElementById("totalPrice").innerText = totalPrice;
         })
@@ -158,4 +157,7 @@ function getArticle() {
     document.getElementById("totalQuantity").innerText = quantity;
   }
   getArticle();
+
+
+
   
