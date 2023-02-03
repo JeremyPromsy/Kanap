@@ -161,22 +161,6 @@ function getArticle() {
 
 
 
-  function modifyQuantity() {
-    let boutonsQuantity = document.getElementsByClassName("itemQuantity");
-    for (let boutonQuantity of boutonsQuantity) {
-        boutonQuantity.addEventListener('change', function () {
-        let productLocalStorage = localStorage.getItem("panier");
-        let panier = JSON.parse(productLocalStorage);
-  
-
-
-
-        localStorage.setItem("panier", JSON.stringify(panier));
-        getArticle();
-      });
-    }
-  }
-
 
 
   
