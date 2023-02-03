@@ -113,22 +113,9 @@ function affichagePanier(url, quantity, color) {
     cart__item__content__settings__delete.append(delete_btn);
 }  
 
-function getPrice(url) {
-    fetch(url)
-      .then(function (response) {
-        if (response.ok) {
-          return res.json();
-        }
-      })
-      .then(function (data) {
-        return data.price;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+
   
-function getArticle() {
+function getTotalPanier() {
     let productLocalStorage = localStorage.getItem("panier");
     let objJson = JSON.parse(productLocalStorage);
     let totalPrice = 0;
@@ -155,7 +142,7 @@ function getArticle() {
     }
     document.getElementById("totalQuantity").innerText = quantity;
   }
-  getArticle();
+  getTotalPanier();
 
 
 
