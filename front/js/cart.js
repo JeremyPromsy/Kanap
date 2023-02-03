@@ -146,6 +146,68 @@ function getTotalPanier() {
 
 
 
+function modifyQuantity() {
+    var boutonsQuantity = document.getElementsByClassName("itemQuantity");
+    for (let boutonQuantity of boutonsQuantity) {
+        boutonQuantity.addEventListener("change", function (){
+
+        var boutonsQuantityId = boutonQuantity.closest("article").dataset.id;
+
+        let productLocalStorage = localStorage.getItem("panier");
+        let objJson = JSON.parse(productLocalStorage);
+
+        for (let i = 0; i < objJson.length; i++) {
+          if (objJson[i].id == boutonsQuantityId) {
+            objJson[i].quantity = selectBtnQty.value;
+          }
+        }
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          console.log(localStorage);
+
+          getTotalPanier();
+      });
+    }
+  }
+
+function supprimerArticle() {
+    var deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
+   
+    for (let deleteBouton of deleteBoutons) {
+        deleteBouton.addEventListener("click", function () {
+        var deleteId = deleteBouton.closest("article").dataset.id;
+  
+        let productLocalStorage = localStorage.getItem("panier");
+        let objJson = JSON.parse(productLocalStorage);
+  
+        for (let i = 0; i < objJson.length; i++) {
+          if (objJson[i].id == deleteId) {
+            delete objJson[i];
+          }
+        }
+  
+        var objJsonFilter = objJson.filter(function (e) {
+          return e != null;
+        });
+        objJson = objJsonFilter;
+
+        localStorage.setItem("panier", JSON.stringify(objJson));
+
+        deleteBouton.closest("article").remove();
+        console.log(localStorage);
+
+        getTotalPanier();
+      });
+    }
+  }
+
+window.onload = function () {
+    modifyQuantity();
+    supprimerArticle();
+};
+
+
+
+
 
 
 
