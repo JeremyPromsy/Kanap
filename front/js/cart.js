@@ -168,10 +168,10 @@ function modifyQuantity() {
     })
   }
 
-function supprimerArticle() {
+function supprimerArticle () {
     var deleteBouton = document.getElementsByClassName("cart__item__content__settings__delete");
     deleteBouton.forEach((quantity) => {
-        quantity.addEventListener("change", (e) => {
+        btn.addEventListener("click", (e) => {
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
