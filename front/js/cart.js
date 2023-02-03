@@ -156,6 +156,7 @@ function modifyQuantity() {
 
         let closestId = e.target.closest('article').getAttribute("data-id");
         let closestColor = e.target.closest('article').getAttribute("data-color");
+        
         let Product = objJson.findIndex(element => element.id == closestId && element.color == closestColor);
 
         objJson[Product].quantity = e.target.value;
@@ -169,8 +170,8 @@ function modifyQuantity() {
 
 function supprimerArticle() {
     var deleteBouton = document.getElementsByClassName("cart__item__content__settings__delete");
-   
-        deleteBouton.addEventListener("click", (e) => {
+    deleteBouton.forEach((quantity) => {
+        quantity.addEventListener("change", (e) => {
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
@@ -189,6 +190,6 @@ function supprimerArticle() {
 
         getTotalPanier();
       });
-    }
-
+    })
+  }
   
