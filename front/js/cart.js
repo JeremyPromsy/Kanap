@@ -148,68 +148,49 @@ function getTotalPanier() {
 
 function modifyQuantity() {
     var boutonsQuantity = document.getElementsByClassName("itemQuantity");
-    for (let boutonQuantity of boutonsQuantity) {
-        boutonQuantity.addEventListener("change", function (){
-
-        var boutonsQuantityId = boutonQuantity.closest("article").dataset.id;
+    boutonsQuantity.forEach((quantity) => {
+        quantity.addEventListener("change", (e) => {
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
 
-        for (let i = 0; i < objJson.length; i++) {
-          if (objJson[i].id == boutonsQuantityId) {
-            objJson[i].quantity = selectBtnQty.value;
-          }
-        }
-          localStorage.setItem("panier", JSON.stringify(objJson));
-          console.log(localStorage);
+        let closestId = e.target.closest('article').getAttribute("data-id");
+        let closestColor = e.target.closest('article').getAttribute("data-color");
+        let Product = objJson.findIndex(element => element.id == closestId && element.color == closestColor);
 
-          getTotalPanier();
-      });
-    }
-  }
-
-function supprimerArticle() {
-    var deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
-   
-    for (let deleteBouton of deleteBoutons) {
-        deleteBouton.addEventListener("click", function () {
-        var deleteId = deleteBouton.closest("article").dataset.id;
-  
-        let productLocalStorage = localStorage.getItem("panier");
-        let objJson = JSON.parse(productLocalStorage);
-  
-        for (let i = 0; i < objJson.length; i++) {
-          if (objJson[i].id == deleteId) {
-            delete objJson[i];
-          }
-        }
-  
-        var objJsonFilter = objJson.filter(function (e) {
-          return e != null;
-        });
-        objJson = objJsonFilter;
+        objJson[Product].quantity = e.target.value;
 
         localStorage.setItem("panier", JSON.stringify(objJson));
 
-        deleteBouton.closest("article").remove();
-        console.log(localStorage);
+        getTotalPanier();
+      });
+    })
+  }
+
+function supprimerArticle() {
+    var deleteBouton = document.getElementsByClassName("cart__item__content__settings__delete");
+   
+        deleteBouton.addEventListener("click", (e) => {
+
+        let productLocalStorage = localStorage.getItem("panier");
+        let objJson = JSON.parse(productLocalStorage);
+
+        let closestId = e.target.closest('article').getAttribute("data-id");
+        let closestColor = e.target.closest('article').getAttribute("data-color")
+
+        let matchIdAndColorInLS = objJson.find(element => element.id == closestId && element.color == closestColor);
+  
+
+        objJson = objJson.filter(element => element.id != matchIdAndColorInLS.id || element.color != matchIdAndColorInLS.color);
+  
+
+        localStorage.setItem("panier", JSON.stringify(objJson));
+
+        // suppression du DOM 
+        e.target.closest('article').remove();
 
         getTotalPanier();
       });
     }
-  }
-
-window.onload = function () {
-    modifyQuantity();
-    supprimerArticle();
-};
-
-
-
-
-
-
-
 
   
