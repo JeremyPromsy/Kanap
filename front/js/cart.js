@@ -178,12 +178,10 @@ function supprimerArticle() {
         let closestId = e.target.closest('article').getAttribute("data-id");
         let closestColor = e.target.closest('article').getAttribute("data-color")
 
-        let matchIdAndColorInLS = objJson.find(element => element.id == closestId && element.color == closestColor);
+        let productColorId = objJson.find(element => element.id == closestId && element.color == closestColor);
   
-
-        objJson = objJson.filter(element => element.id != matchIdAndColorInLS.id || element.color != matchIdAndColorInLS.color);
+        objJson = objJson.filter(element => element.id != productColorId.id || element.color != productColorId.color);
   
-
         localStorage.setItem("panier", JSON.stringify(objJson));
 
         // suppression du DOM 
