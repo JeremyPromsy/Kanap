@@ -145,7 +145,7 @@ function getTotalPanier() {
   getTotalPanier();
 
 
-  function modifyQuantity() {
+function modifyQuantity() {
     var boutonsQuantity = document.getElementsByClassName("itemQuantity");
     boutonsQuantity.forEach((quantity) => {
         quantity.addEventListener("change", (event) => {
@@ -186,6 +186,7 @@ function supprimerArticle () {
           (element) => element.id != closestId.id || element.color != closestColor.color
           );
   
+          deleteBouton.closest("article").remove();
 
           localStorage.setItem("panier", JSON.stringify(objJson));
 
