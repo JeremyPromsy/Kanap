@@ -166,7 +166,7 @@ function modifyQuantity() {
     }
 
 function supprimerArticle () {
-    var deleteBoutons = document.querySelector(".deleteItem");
+    var deleteBouton = document.querySelector(".deleteItem");
       deleteBouton.addEventListener("click", (event) => {
         event.preventDefault();
 
