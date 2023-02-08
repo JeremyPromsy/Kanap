@@ -146,33 +146,27 @@ function getTotalPanier() {
 
 
 function modifyQuantity() {
-    var boutonsQuantity = document.getElementsByClassName("itemQuantity");
-    boutonsQuantity.forEach((quantity) => {
-        quantity.addEventListener("change", (event) => {
-          event.preventDefault();
+    var boutonQuantity = document.querySelector(".itemQuantity");
+    boutonQuantity.addEventListener("change", (event) => {
+        event.preventDefault();
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
-
-        let closestId = event.target.closest('article').getAttribute("data-id");
-        let closestColor = event.target.closest('article').getAttribute("data-color");
         
         let Product = objJson.findIndex(
           element => element.id == closestId && element.color == closestColor
           );
 
-        objJson[Product].quantity = event.target.value;
+        objJson[Product].boutonQuantity = event.target.value;
 
         localStorage.setItem("panier", JSON.stringify(objJson));
 
         getTotalPanier();
       });
-    })
-  }
+    }
 
 function supprimerArticle () {
-    var deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
-    deleteBoutons.forEach((deleteBouton) => {
+    var deleteBoutons = document.querySelector(".deleteItem");
       deleteBouton.addEventListener("click", (event) => {
         event.preventDefault();
 
@@ -192,7 +186,6 @@ function supprimerArticle () {
 
           getTotalPanier()
       });
-    }); 
-  }
+    }
 
 
