@@ -145,24 +145,23 @@ function getTotalPanier() {
   getTotalPanier();
 
 
-
-function modifyQuantity() {
+  function modifyQuantity() {
     var boutonsQuantity = document.getElementsByClassName("itemQuantity");
     boutonsQuantity.forEach((quantity) => {
-        quantity.addEventListener("change", (e) => {
-          e.preventDefault();
+        quantity.addEventListener("change", (event) => {
+          event.preventDefault();
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
 
-        let closestId = e.target.closest('article').getAttribute("data-id");
-        let closestColor = e.target.closest('article').getAttribute("data-color");
+        let closestId = event.target.closest('article').getAttribute("data-id");
+        let closestColor = event.target.closest('article').getAttribute("data-color");
         
         let Product = objJson.findIndex(
           element => element.id == closestId && element.color == closestColor
           );
 
-        objJson[Product].quantity = e.target.value;
+        objJson[Product].quantity = event.target.value;
 
         localStorage.setItem("panier", JSON.stringify(objJson));
 
@@ -174,14 +173,14 @@ function modifyQuantity() {
 function supprimerArticle () {
     var deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
     deleteBoutons.forEach((deleteBouton) => {
-      deleteBouton.addEventListener("click", (e) => {
-        e.preventDefault();
+      deleteBouton.addEventListener("click", (event) => {
+        event.preventDefault();
 
         let productLocalStorage = localStorage.getItem("panier");
         let objJson = JSON.parse(productLocalStorage);
 
-        let closestId = e.target.closest('article').getAttribute("data-id");
-        let closestColor = e.target.closest('article').getAttribute("data-color");
+        let closestId = event.target.closest('article').getAttribute("data-id");
+        let closestColor = event.target.closest('article').getAttribute("data-color");
   
         objJson = objJson.filter(
           (element) => element.id != closestId.id || element.color != closestColor.color
@@ -189,10 +188,10 @@ function supprimerArticle () {
   
 
           localStorage.setItem("panier", JSON.stringify(objJson));
-          location.reload();
 
           getTotalPanier()
       });
     }); 
   }
-  
+
+
