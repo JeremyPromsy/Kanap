@@ -118,7 +118,7 @@ function getTotalPanier() {
     let quantity = 0;
 
     for (let article of objJson) {
-      quantity = parseInt(quantity) + parseInt(article.quantity);
+      totalQuantity = parseInt(quantity) + parseInt(article.quantity);
   
       let urlPanier = "http://localhost:3000/api/products/" + article.id;
   
@@ -136,7 +136,7 @@ function getTotalPanier() {
           console.log(error);
         });
     }
-    document.getElementById("totalQuantity").innerText = quantity;
+    document.getElementById("totalQuantity").innerText = totalQuantity;
 }
 getTotalPanier();
 
