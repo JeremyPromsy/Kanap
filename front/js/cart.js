@@ -142,7 +142,7 @@ getTotalPanier();
 
 
 function supprimerArticle () {
-  let deleteBouton = document.querySelector(".deleteItem");
+  let boutonSupprimer = document.querySelector(".deleteItem");
   boutonSupprimer.forEach(bouton => {
     bouton.addEventListener("click", function(e){
 
