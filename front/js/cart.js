@@ -1,3 +1,6 @@
+let productLocalStorage = localStorage.getItem("panier");
+let objJson = JSON.parse(productLocalStorage);
+
 function affichagePanier(url, quantity, color) {
     fetch(url)
       .then(function (response) {
@@ -22,9 +25,6 @@ function affichagePanier(url, quantity, color) {
   }
 
   function analysePanier() {
-    let productLocalStorage = localStorage.getItem("panier");
-    let objJson = JSON.parse(productLocalStorage);
-
     for (let article of objJson) {
       var url = "http://localhost:3000/api/products/" + article.id;
       affichagePanier(url, article.quantity, article.colors);
@@ -113,11 +113,7 @@ function affichagePanier(url, quantity, color) {
     cart__item__content__settings__delete.append(delete_btn);
 }  
 
-
-  
 function getTotalPanier() {
-    let productLocalStorage = localStorage.getItem("panier");
-    let objJson = JSON.parse(productLocalStorage);
     let totalPrice = 0;
     let quantity = 0;
 
@@ -141,51 +137,82 @@ function getTotalPanier() {
         });
     }
     document.getElementById("totalQuantity").innerText = quantity;
-  }
-  getTotalPanier();
+}
+getTotalPanier();
 
 
 function modifyQuantity() {
     var boutonQuantity = document.querySelector(".itemQuantity");
-    boutonQuantity.addEventListener("change", (event) => {
-        event.preventDefault();
+    boutonQuantity.forEach(modify => {
+      modify.addEventListener("change", function(e){
+        
+        const inputQuantity = e.target.closest("input").valueAsNumber
+        
+        if (inputQuantity <= 0 || inputQuantity >= 100) {
+          alert("-- Entrez une quantité --")
+          return
+        }
 
-        let productLocalStorage = localStorage.getItem("panier");
-        let objJson = JSON.parse(productLocalStorage);
+        let closestId = e.target.closest('article').getAttribute("data-id")
+        let closestColor = e.target.closest('article').getAttribute("data-color")
         
         let Product = objJson.findIndex(
           element => element.id == closestId && element.color == closestColor
           );
 
-        objJson[Product].boutonQuantity = event.target.value;
+        objJson[Product].boutonQuantity = inputQuantity;
 
         localStorage.setItem("panier", JSON.stringify(objJson));
 
         getTotalPanier();
-      });
-    }
+      })
+    })
+  }
+
 
 function supprimerArticle () {
-    var deleteBouton = document.querySelector(".deleteItem");
-      deleteBouton.addEventListener("click", (event) => {
-        event.preventDefault();
+    let deleteBouton = document.querySelector(".deleteItem");
+    boutonSupprimer.forEach(bouton => {
+      bouton.addEventListener("click", function(e){
 
-        let productLocalStorage = localStorage.getItem("panier");
-        let objJson = JSON.parse(productLocalStorage);
-
-        let closestId = event.target.closest('article').getAttribute("data-id");
-        let closestColor = event.target.closest('article').getAttribute("data-color");
+        let closestId = e.target.closest('article').getAttribute("data-id")
+        let closestColor = e.target.closest('article').getAttribute("data-color")
   
         objJson = objJson.filter(
-          (element) => element.id != closestId.id || element.color != closestColor.color
-          );
-  
-          deleteBouton.closest("article").remove();
+          (element) => element.id !== closestId.id || element.color !== closestColor.color
+          )
 
-          localStorage.setItem("panier", JSON.stringify(objJson));
+          localStorage.setItem("panier", JSON.stringify(objJson))
+
+          alert("Ce produit a bien été supprimé du panier")
+            
+          deleteBouton.closest("article").remove()
 
           getTotalPanier()
-      });
-    }
+      })
+    })
+  }
 
 
+
+
+
+
+
+
+
+  
+
+
+
+
+const firstName = document.getElementById("firstName")
+const lastName = document.getElementById("lastName")
+const address = document.getElementById("address")
+const city = document.getElementById("city")
+const email = document.getElementById("email")
+const order = document.getElementById("order")  
+const RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
+const RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
+const RegExpEmail = /^(([^<()[\]\\.,;:\s@\]+(\.[^<()[\]\\.,;:\s@\]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+  
