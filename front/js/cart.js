@@ -141,6 +141,29 @@ function getTotalPanier() {
 getTotalPanier();
 
 
+function supprimerArticle () {
+  let deleteBouton = document.querySelector(".deleteItem");
+  boutonSupprimer.forEach(bouton => {
+    bouton.addEventListener("click", function(e){
+
+      let closestId = e.target.closest('article').getAttribute("data-id")
+      let closestColor = e.target.closest('article').getAttribute("data-color")
+
+      objJson = objJson.filter(
+        (element) => element.id !== closestId.id || element.color !== closestColor.color
+        )
+
+        localStorage.setItem("panier", JSON.stringify(objJson))
+
+        alert("Ce produit a bien été supprimé du panier")
+          
+        deleteBouton.closest("article").remove()
+
+        getTotalPanier()
+    })
+  })
+}
+
 function modifyQuantity() {
     var boutonQuantity = document.querySelector(".itemQuantity");
     boutonQuantity.forEach(modify => {
@@ -170,28 +193,7 @@ function modifyQuantity() {
   }
 
 
-function supprimerArticle () {
-    let deleteBouton = document.querySelector(".deleteItem");
-    boutonSupprimer.forEach(bouton => {
-      bouton.addEventListener("click", function(e){
 
-        let closestId = e.target.closest('article').getAttribute("data-id")
-        let closestColor = e.target.closest('article').getAttribute("data-color")
-  
-        objJson = objJson.filter(
-          (element) => element.id !== closestId.id || element.color !== closestColor.color
-          )
-
-          localStorage.setItem("panier", JSON.stringify(objJson))
-
-          alert("Ce produit a bien été supprimé du panier")
-            
-          deleteBouton.closest("article").remove()
-
-          getTotalPanier()
-      })
-    })
-  }
 
 
 
