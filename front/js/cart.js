@@ -92,14 +92,14 @@ function affichagePanier(url, quantity, color) {
     cart__item__content__settings__quantity.append(content__description_quantity);
   
     // ajout de la quantité
-    let content__description_quantity_input = document.createElement("input");
-    content__description_quantity_input.type = "number";
-    content__description_quantity_input.classList.add("itemQuantity");
-    content__description_quantity_input.name = "itemQuantity";
-    content__description_quantity_input.min = 1;
-    content__description_quantity_input.max = 100;
-    content__description_quantity_input.value = quantity;
-    cart__item__content__settings__quantity.append(content__description_quantity_input);
+    let input = document.createElement("input");
+    input.type = "number";
+    input.classList.add("itemQuantity");
+    input.name = "itemQuantity";
+    input.min = 1;
+    input.max = 100;
+    input.value = quantity;
+    cart__item__content__settings__quantity.append(input);
 
     // ajout de la suppression
     let cart__item__content__settings__delete = document.createElement("div");
@@ -160,11 +160,11 @@ function modifyQuantity() {
           element => element.id == closestId && element.color == closestColor
           );
 
-        objJson[Product].boutonQuantity = inputQuantity;
+        objJson[Product].quantity = inputQuantity;
 
         localStorage.setItem("panier", JSON.stringify(objJson));
 
-        getTotalPanier();
+        getTotalPanier()
       })
     })
   }
