@@ -110,6 +110,27 @@ function affichagePanier(url, quantity, color) {
     let delete_btn = document.createElement("p");
     delete_btn.textContent = "Supprimer";
     delete_btn.classList.add("deleteItem");
+    
+    delete_btn.addEventListener("click",function supprimerArticle(){
+      let boutonSupprimer = Array.from(document.getElementsByClassName("deleteItem"))
+        boutonSupprimer.forEach(bouton => {
+          bouton.addEventListener("click", function(e){
+            let closestId = e.target.closest('article').getAttribute("data-id")
+            let closestColor = e.target.closest('article').getAttribute("data-color")
+      
+            objJson = objJson.filter(
+              (element) => element.id !== closestId.id || element.color !== closestColor.color
+              )
+      
+              bouton.closest("article").remove()
+              localStorage.setItem("panier", JSON.stringify(objJson))
+      
+              alert("Ce produit a bien été supprimé du panier") 
+      
+              getTotalPanier()
+          })
+        })
+    })
     cart__item__content__settings__delete.append(delete_btn);
 }  
 
@@ -141,11 +162,12 @@ function getTotalPanier() {
 getTotalPanier();
 
 
-function supprimerArticle () {
-  let boutonSupprimer = document.querySelector(".deleteItem");
+/*function supprimerArticle () {
+  let boutonSupprimer = Array.from(document.getElementsByClassName("deleteItem"))
+  //for(let i=0; i < boutonSupprimer.length; i++) {}
   boutonSupprimer.forEach(bouton => {
     bouton.addEventListener("click", function(e){
-
+      console.log('test')
       let closestId = e.target.closest('article').getAttribute("data-id")
       let closestColor = e.target.closest('article').getAttribute("data-color")
 
@@ -163,6 +185,7 @@ function supprimerArticle () {
     })
   })
 }
+supprimerArticle()*/
 
 function modifyQuantity() {
     var boutonQuantity = document.querySelector(".itemQuantity");
@@ -191,6 +214,7 @@ function modifyQuantity() {
       })
     })
   }
+
 
 
 
