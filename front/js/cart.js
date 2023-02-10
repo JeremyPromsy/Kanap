@@ -110,28 +110,11 @@ function affichagePanier(url, quantity, color) {
     let delete_btn = document.createElement("p");
     delete_btn.textContent = "Supprimer";
     delete_btn.classList.add("deleteItem");
-    
-    delete_btn.addEventListener("click",function supprimerArticle(){
-      let boutonSupprimer = Array.from(document.getElementsByClassName("deleteItem"))
-        boutonSupprimer.forEach(bouton => {
-          bouton.addEventListener("click", function(e){
-            let closestId = e.target.closest('article').getAttribute("data-id")
-            let closestColor = e.target.closest('article').getAttribute("data-color")
-      
-            objJson = objJson.filter(
-              (element) => element.id !== closestId.id || element.color !== closestColor.color
-              )
-      
-              bouton.closest("article").remove()
-              localStorage.setItem("panier", JSON.stringify(objJson))
-      
-              alert("Ce produit a bien été supprimé du panier") 
-      
-              getTotalPanier()
-          })
-        })
-    })
     cart__item__content__settings__delete.append(delete_btn);
+
+    supprimerArticle ()
+    modifyQuantity()
+    getTotalPanier()
 }  
 
 function getTotalPanier() {
@@ -159,60 +142,48 @@ function getTotalPanier() {
     }
     document.getElementById("totalQuantity").innerText = quantity;
 }
-getTotalPanier();
 
 
-/*function supprimerArticle () {
-  let boutonSupprimer = Array.from(document.getElementsByClassName("deleteItem"))
-  //for(let i=0; i < boutonSupprimer.length; i++) {}
-  boutonSupprimer.forEach(bouton => {
-    bouton.addEventListener("click", function(e){
-      console.log('test')
-      let closestId = e.target.closest('article').getAttribute("data-id")
-      let closestColor = e.target.closest('article').getAttribute("data-color")
+function supprimerArticle () {
+  const moveItem = document.querySelectorAll(".deleteItem");
+  for (let j = 0; j < moveItem.length; j++) {
+    moveItem[j].addEventListener("click", (event) => {
+      event.preventDefault();
 
+      let closestId = event.target.closest('article').getAttribute("data-id")
+      let closestColor = event.target.closest('article').getAttribute("data-color")
+      
       objJson = objJson.filter(
         (element) => element.id !== closestId.id || element.color !== closestColor.color
         )
 
-        localStorage.setItem("panier", JSON.stringify(objJson))
-
-        alert("Ce produit a bien été supprimé du panier")
-          
-        deleteBouton.closest("article").remove()
-
-        getTotalPanier()
-    })
-  })
+        localStorage.setItem("panier", JSON.stringify(objJson));
+        console.log('aa')
+        getTotalPanier();  
+    });
+  }
 }
-supprimerArticle()*/
 
 function modifyQuantity() {
-    var boutonQuantity = document.querySelector(".itemQuantity");
-    boutonQuantity.forEach(modify => {
-      modify.addEventListener("change", function(e){
-        
-        const inputQuantity = e.target.closest("input").valueAsNumber
-        
-        if (inputQuantity <= 0 || inputQuantity >= 100) {
-          alert("-- Entrez une quantité --")
-          return
+  const modifQuantity = document.querySelectorAll(".itemQuantity");
+  for (let i = 0; i < modifQuantity.length; i++) {
+    modifQuantity[i].addEventListener("change", function (event) {
+      event.preventDefault();
+
+      objJson[i].quantity = event.target.value;
+      console.log(objJson[i].quantity)
+
+      if (objJson[i].quantity > 100 || objJson[i].quantity <= 0
+        ) {
+          alert('Merci de sélectionner une quantité comprise entre 1 et 100');
+          location.reload();
+
+        } else {
+          localStorage.setItem("panier", JSON.stringify(objJson));
+          getTotalPanier();        
         }
-
-        let closestId = e.target.closest('article').getAttribute("data-id")
-        let closestColor = e.target.closest('article').getAttribute("data-color")
-        
-        let Product = objJson.findIndex(
-          element => element.id == closestId && element.color == closestColor
-          );
-
-        objJson[Product].quantity = inputQuantity;
-
-        localStorage.setItem("panier", JSON.stringify(objJson));
-
-        getTotalPanier()
-      })
-    })
+      });
+    }
   }
 
 
@@ -241,4 +212,3 @@ const order = document.getElementById("order")
 const RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
 const RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
 const RegExpEmail = /^(([^<()[\]\\.,;:\s@\]+(\.[^<()[\]\\.,;:\s@\]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
-  
