@@ -147,14 +147,14 @@ function getTotalPanier() {
 function supprimerArticle () {
    let deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
     for (let deleteBouton of deleteBoutons) {
-      deleteBouton.addEventListener("click", function(){
-        var deleteId = deleteBouton.closest("article").dataset.id;
+      deleteBouton.addEventListener("click", function(event){
 
-        for (let j = 0; j < objJson.length; j++) {
-          if (objJson[j].id == deleteId) {
-            delete objJson[j];
-          }
-        }
+        let closestId = event.target.closest('article').getAttribute("data-id")
+        let closestColor = event.target.closest('article').getAttribute("data-color")
+      
+        objJson = objJson.filter(
+        (element) => element.id !== closestId.id || element.color !== closestColor.color
+        )
 
           localStorage.setItem("panier", JSON.stringify(objJson));  
           deleteBouton.closest("article").remove();
