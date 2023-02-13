@@ -145,21 +145,21 @@ function getTotalPanier() {
 
 
 function supprimerArticle () {
-  const moveItem = document.querySelectorAll(".deleteItem");
-  for (let j = 0; j < moveItem.length; j++) {
-    moveItem[j].addEventListener("click", (event) => {
-      event.preventDefault();
+   let deleteBoutons = document.getElementsByClassName("cart__item__content__settings__delete");
+    for (let deleteBouton of deleteBoutons) {
+      deleteBouton.addEventListener("click", function(){
+        var deleteId = deleteBouton.closest("article").dataset.id;
 
-      let closestId = event.target.closest('article').getAttribute("data-id")
-      let closestColor = event.target.closest('article').getAttribute("data-color")
-      
-      objJson = objJson.filter(
-        (element) => element.id !== closestId.id || element.color !== closestColor.color
-        )
+        for (let i = 0; i < objJson.length; i++) {
+          if (objJson[i].id == deleteId) {
+            delete objJson[i];
+          }
+        }
 
-        localStorage.setItem("panier", JSON.stringify(objJson));
-        console.log('aa')
-        getTotalPanier();  
+          localStorage.setItem("panier", JSON.stringify(objJson));  
+          deleteBouton.closest("article").remove(); 
+
+          getTotalPanier()
     });
   }
 }
