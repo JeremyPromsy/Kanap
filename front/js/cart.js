@@ -150,14 +150,14 @@ function supprimerArticle () {
       deleteBouton.addEventListener("click", function(){
         var deleteId = deleteBouton.closest("article").dataset.id;
 
-        for (let i = 0; i < objJson.length; i++) {
-          if (objJson[i].id == deleteId) {
-            delete objJson[i];
+        for (let j = 0; j < objJson.length; j++) {
+          if (objJson[j].id == deleteId) {
+            delete objJson[j];
           }
         }
 
           localStorage.setItem("panier", JSON.stringify(objJson));  
-          deleteBouton.closest("article").remove(); 
+          deleteBouton.closest("article").remove();
 
           getTotalPanier()
     });
