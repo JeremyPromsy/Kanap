@@ -10,7 +10,7 @@ function affichagePanier(url, quantity, color) {
       })
       .then(function (articles) {
         createPanierArticle(
-          articles.id,
+          articles._id,
           articles.imageUrl,
           articles.altTxt,
           articles.name,
@@ -152,8 +152,9 @@ function supprimerArticle () {
         let closestId = event.target.closest('article').getAttribute("data-id")
         let closestColor = event.target.closest('article').getAttribute("data-color")
       
+        
         objJson = objJson.filter(
-        (element) => element.id !== closestId.id || element.color !== closestColor.color
+        (element) => element.id != closestId || element.colors != closestColor
         )
 
           localStorage.setItem("panier", JSON.stringify(objJson));  
