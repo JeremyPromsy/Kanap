@@ -273,11 +273,6 @@ fillingForm();
 
 
 function commander () {
-  let products = [];
-    for (j = 0; j < objJson.length; j++) {
-        products.push(objJson[j].id)};
-        console.log((products));
-
     const boutonCommander = document.getElementById("order");
 
     boutonCommander.addEventListener("click", (e) => {
@@ -297,25 +292,43 @@ function commander () {
             email: inputMail.value,
         }
 
-        const order = { contact, products };
+        let idProducts = [];
+        for (j = 0; j < objJson.length; j++) {
+          idProducts.push(objJson[j].id)};
+        console.log((idProducts));
 
-        const requete = fetch("http://localhost:3000/api/products/order", {
-            method: "POST",
-            body: JSON.stringify(order),
-            headers: {
-                'Content-type': 'application/json'
-            },
+        const order = {
+          contact : {
+              firstName: inputFirstName.value,
+              lastName: inputLastName.value,
+              address: inputAdress.value,
+              city: inputCity.value,
+              email: inputMail.value,
+          },
+          products: idProducts,
+      } 
+
+        const options = {
+          method: 'POST',
+          body: JSON.stringify(order),
+          headers: {
+            'Accept': 'application/json', 
+            "Content-Type": "application/json" 
+          },
+      };
+
+        fetch("http://localhost:3000/api/products/order", options)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            localStorage.clear();
+            localStorage.setItem("orderId", data.orderId);
+
+            document.location.href = "confirmation.html?id=" + data.orderId;
         })
-
-            .then((response) => response.json())
-            .then((data) => {
-                localStorage.setItem("orderId", data.orderId);
-                document.location.href = `confirmation.html?id=${data.orderId}`;
-            })
-            
-            .catch((erreur) => {
-                alert(`Erreur: ${erreur}`);
-            });
-    });
-}
+        .catch((err) => {
+            alert ("Problème avec fetch : " + err.message);
+        });
+        })
+  }
 commander();
