@@ -284,14 +284,6 @@ function commander () {
         const inputCity = document.getElementById("city");
         const inputMail = document.getElementById("email");
 
-        const contact = {
-            firstName: inputFirstName.value,
-            lastName: inputLastName.value,
-            address: inputAdress.value,
-            city: inputCity.value,
-            email: inputMail.value,
-        }
-
         let idProducts = [];
         for (j = 0; j < objJson.length; j++) {
           idProducts.push(objJson[j].id)};
