@@ -283,31 +283,36 @@ function commander () {
     boutonCommander.addEventListener("click", (e) => {
         e.preventDefault();
 
-        const order = {
-          contact: {
-            firstName: document.getElementById("firstName").value,
-            lastName: document.getElementById("lastName").value,
-            address: document.getElementById("address").value,
-            city: document.getElementById("city").value,
-            email: document.getElementById("email").value,
-          },
-          products: objJson,
-        };
+        const inputFirstName = document.getElementById("firstName");
+        const inputLastName = document.getElementById("lastName");
+        const inputAdress = document.getElementById("address");
+        const inputCity = document.getElementById("city");
+        const inputMail = document.getElementById("email");
 
+        const contact = {
+            firstName: inputFirstName.value,
+            lastName: inputLastName.value,
+            address: inputAdress.value,
+            city: inputCity.value,
+            email: inputMail.value,
+        }
 
-        const options = {
+        const order = { contact, products };
+
+        const requete = fetch("http://localhost:3000/api/products/order", {
             method: "POST",
             body: JSON.stringify(order),
             headers: {
                 'Content-type': 'application/json'
-              },
-            };
+            },
+        })
 
-            fetch("http://localhost:3000/api/products/order", options)
             .then((response) => response.json())
             .then((data) => {
-                document.location.href = "confirmation.html?id=" + data.orderId;
+                localStorage.setItem("orderId", data.orderId);
+                document.location.href = `confirmation.html?id=${data.orderId}`;
             })
+            
             .catch((erreur) => {
                 alert(`Erreur: ${erreur}`);
             });
