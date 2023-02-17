@@ -270,3 +270,47 @@ function fillingForm () {
   });
 }
 fillingForm();
+
+
+function commander () {
+  let products = [];
+    for (j = 0; j < objJson.length; j++) {
+        products.push(objJson[j].id)};
+        console.log((products));
+
+    const boutonCommander = document.getElementById("order");
+
+    boutonCommander.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const order = {
+          contact: {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value,
+          },
+          products: objJson,
+        };
+
+
+        const options = {
+            method: "POST",
+            body: JSON.stringify(order),
+            headers: {
+                'Content-type': 'application/json'
+              },
+            };
+
+            fetch("http://localhost:3000/api/products/order", options)
+            .then((response) => response.json())
+            .then((data) => {
+                document.location.href = "confirmation.html?id=" + data.orderId;
+            })
+            .catch((erreur) => {
+                alert(`Erreur: ${erreur}`);
+            });
+    });
+}
+commander();
