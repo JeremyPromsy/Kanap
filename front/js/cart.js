@@ -187,29 +187,86 @@ function modifyQuantity() {
     }
   }
 
+function fillingForm () {
+  let form = document.querySelector(".cart__order__form");
+  let RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
+  let RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
+  let RegExpEmail = /^(([^<()[\]\\.,;:\s@\]+(\.[^<()[\]\\.,;:\s@\]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
 
+  var firstNameValid = false;
+  var lastNameValid = false;
+  var addressValid = false;
+  var cityValid = false;
+  var emailValid = false;
 
+  form.firstName.addEventListener("change", function () {
+    if (form.firstName.value.match(RegExpText)) {
+      document.getElementById("firstNameErrorMsg").textContent = "";
+      firstNameValid = true;
+    } else {
+      document.getElementById("firstNameErrorMsg").textContent =
+        "Type de saisie incorrecte";
+      firstNameValid = false;
+    }
+  });
 
+  form.lastName.addEventListener("change", function () {
+    if (form.lastName.value.match(RegExpText)) {
+      document.getElementById("lastNameErrorMsg").textContent = "";
+      lastNameValid = true;
+    } else {
+      document.getElementById("lastNameErrorMsg").textContent =
+        "Type de saisie incorrecte";
+      lastNameValid = false;
+    }
+  });
 
+  form.address.addEventListener("change", function () {
+    if (form.address.value.match(RegExpAdress)) {
+      document.getElementById("addressErrorMsg").textContent = "";
+      addressValid = true;
+    } else {
+      document.getElementById("addressErrorMsg").textContent =
+        "Type de saisie incorrecte";
+      addressValid = false;
+    }
+  });
 
+  form.city.addEventListener("change", function () {
+    if (form.city.value.match(RegExpText)) {
+      document.getElementById("cityErrorMsg").textContent = "";
+      cityValid = true;
+    } else {
+      document.getElementById("cityErrorMsg").textContent =
+        "Type de saisie incorrecte";
+      cityValid = false;
+    }
+  });
 
+  form.email.addEventListener("change", function () {
+    if (form.email.value.match(RegExpEmail)) {
+      document.getElementById("emailErrorMsg").textContent = "";
+      emailValid = true;
+    } else {
+      document.getElementById("emailErrorMsg").textContent =
+        "Type de saisie incorrecte";
+      emailValid = false;
+    }
+  });
 
-
-
-
-
-
-  
-
-
-
-
-const firstName = document.getElementById("firstName")
-const lastName = document.getElementById("lastName")
-const address = document.getElementById("address")
-const city = document.getElementById("city")
-const email = document.getElementById("email")
-const order = document.getElementById("order")  
-const RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
-const RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
-const RegExpEmail = /^(([^<()[\]\\.,;:\s@\]+(\.[^<()[\]\\.,;:\s@\]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+  form.addEventListener("change", function () {
+    if (
+      firstNameValid == true &&
+      lastNameValid == true &&
+      addressValid == true &&
+      cityValid == true &&
+      emailValid == true
+    ) {
+      console.log("formulaire complet");
+      fillingForm();
+    } else {
+      console.log("formulaire incomplet");
+    }
+  });
+}
+fillingForm();
