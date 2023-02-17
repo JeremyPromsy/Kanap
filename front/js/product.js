@@ -67,7 +67,7 @@ const affichageFenetrePanier = (name) => {
       `Vous avez acheté ${document.getElementById("quantity").value} ${name} de couleur ${
         document.getElementById("colors").value
       } 
-      Pour aller au panier, cliquez sur OK`
+Pour aller au panier, cliquez sur OK`
     )
   ) {
     window.location.href = "cart.html";
