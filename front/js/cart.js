@@ -151,7 +151,8 @@ function supprimerArticle () {
 
         let closestId = event.target.closest('article').getAttribute("data-id")
         let closestColor = event.target.closest('article').getAttribute("data-color")
-      
+        console.log(closestId)
+        console.log(closestColor)
         
         objJson = objJson.filter(
         (element) => element.id != closestId || element.colors != closestColor
