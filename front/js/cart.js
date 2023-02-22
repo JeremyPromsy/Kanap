@@ -319,8 +319,8 @@ function commander () {
 
             document.location.href = "confirmation.html?id=" + data.orderId;
         })
-        .catch((err) => {
-            alert ("Problème avec fetch : " + err.message);
+        .catch(function (erreur) {
+          console.log(erreur);
         });
         })
   }
