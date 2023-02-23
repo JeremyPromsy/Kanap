@@ -1,8 +1,7 @@
 function getOrderId() {
-    let actualUrl = document.location.href;
-    actualUrl = new URL(actualUrl);
-    let id = actualUrl.searchParams.get("id");
-    document.getElementById("orderId").textContent = id;
+  const orderId = document.getElementById("orderId");
+  orderId.innerHTML = localStorage.getItem("orderId");
+  localStorage.clear();
   }
   
   getOrderId();
