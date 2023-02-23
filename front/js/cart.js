@@ -190,7 +190,7 @@ function modifyQuantity() {
 
 function fillingForm () {
   let form = document.querySelector(".cart__order__form");
-  let RegExpText = /^[a-zA-Z ,.'-]+$/;
+  let RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
   let RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
   let RegExpEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
 
