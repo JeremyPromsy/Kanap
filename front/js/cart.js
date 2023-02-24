@@ -317,12 +317,12 @@ function commander () {
             addressValid == true &&
             cityValid == true &&
             emailValid == true &&
-            productLocalStorage != null
+            objJson != null
           ) {
             console.log("formulaire complet");
             actionCommander()
           } else {
-            alert("formulaire incomplet");
+            alert("Votre formulaire est incomplet ou votre panier est vide");
           }        
         })
   }
