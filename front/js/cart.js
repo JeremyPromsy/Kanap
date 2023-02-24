@@ -25,10 +25,12 @@ function affichagePanier(url, quantity, color) {
   }
 
   function analysePanier() {
+    if(objJson != null) {
     for (let article of objJson) {
       var url = "http://localhost:3000/api/products/" + article.id;
       affichagePanier(url, article.quantity, article.colors);
     }
+  }
   }
   analysePanier();
 
@@ -188,17 +190,17 @@ function modifyQuantity() {
     }
   }
 
+var firstNameValid = false;
+var lastNameValid = false;
+var addressValid = false;
+var cityValid = false;
+var emailValid = false;
+
 function fillingForm () {
   let form = document.querySelector(".cart__order__form");
   let RegExpText = /^[a-zA-Zàâäéèêëïîôöùûüç\-]+$/;
   let RegExpAdress = /^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+/;
   let RegExpEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
-
-  var firstNameValid = false;
-  var lastNameValid = false;
-  var addressValid = false;
-  var cityValid = false;
-  var emailValid = false;
 
   form.firstName.addEventListener("change", function () {
     if (form.firstName.value.match(RegExpText)) {
@@ -254,31 +256,10 @@ function fillingForm () {
       emailValid = false;
     }
   });
-
-  form.addEventListener("change", function () {
-    if (
-      firstNameValid == true &&
-      lastNameValid == true &&
-      addressValid == true &&
-      cityValid == true &&
-      emailValid == true
-    ) {
-      console.log("formulaire complet");
-      fillingForm();
-    } else {
-      console.log("formulaire incomplet");
-    }
-  });
 }
 fillingForm();
 
-
-function commander () {
-    const boutonCommander = document.getElementById("order");
-
-    boutonCommander.addEventListener("click", (e) => {
-        e.preventDefault();
-
+function actionCommander (){
         const inputFirstName = document.getElementById("firstName");
         const inputLastName = document.getElementById("lastName");
         const inputAdress = document.getElementById("address");
@@ -322,6 +303,27 @@ function commander () {
         .catch(function (erreur) {
           console.log(erreur);
         });
+}
+
+function commander () {
+    const boutonCommander = document.getElementById("order");
+
+    boutonCommander.addEventListener("click", (e) => {
+        e.preventDefault();
+
+          if (
+            firstNameValid == true &&
+            lastNameValid == true &&
+            addressValid == true &&
+            cityValid == true &&
+            emailValid == true &&
+            productLocalStorage != null
+          ) {
+            console.log("formulaire complet");
+            actionCommander()
+          } else {
+            alert("formulaire incomplet");
+          }        
         })
   }
 commander();
