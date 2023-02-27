@@ -162,6 +162,7 @@ function supprimerArticle () {
 
           localStorage.setItem("panier", JSON.stringify(objJson));  
           deleteBouton.closest("article").remove();
+          location.reload();
 
           getTotalPanier()
     });
