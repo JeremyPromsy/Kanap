@@ -121,7 +121,7 @@ function ajoutPanier(id, name) {
 
       // Alerte mise au panier
       else {
-       alert('Vous devez sélectionné une quantité et une couleur.');
+       alert('Vous devez sélectionner une quantité et une couleur.');
       }
   });
 }
